@@ -1,0 +1,27 @@
+{
+  "name": "neos",
+  "version": "0.1.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "dev": "tsx watch --env-file=data/.env.dev src/index.ts",
+    "build": "del /s /q build && tsc",
+    "prod": "node --env-file=data/.env.prod .",
+    "lint": "eslint . --fix"
+  },
+  "keywords": [],
+  "author": "VoidThreader",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "discord.js": "^14.26.3",
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
+    "eslint": "^10.2.1",
+    "tsx": "^4.21.0",
+    "typescript-eslint": "^8.59.1"
+  }
+}
