@@ -117,6 +117,8 @@ client.on(Events.MessageCreate, async message => {
     console.log(logEntry);
     
     if (message.author.bot) return;
+
+    if (message.content.includes(":3")) console.log(":3");
 });
 
 try {
