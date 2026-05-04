@@ -122,6 +122,5 @@ client.on(Events.MessageCreate, async message => {
 try {
     client.login(`${process.env.DISCORD_TOKEN}`);
 } catch (error) {
-    console.log("Failed to login.");
-    console.log(error);
+    console.log(`Failed to login:\n${error}`);
 }
