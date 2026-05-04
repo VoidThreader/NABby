@@ -80,7 +80,7 @@ try {
 
 client.on(Events.ClientReady, () => {
     console.log("Neos is online");
-    console.log(`Client: All eyes on ${client.user?.username} (${client.user?.tag})!`);
+    console.log(`Client: All eyes on ${client.user?.username}!`);
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
@@ -113,12 +113,12 @@ client.on(Events.InteractionCreate, async (interaction) => {
 client.on(Events.MessageCreate, async message => {
     if (!message.inGuild()) return;
 
-    const logEntry = `[${new Date().toLocaleString()}] Message from ${message.author.tag} in #${message.channel.name} (${message.channel.id}):\n${message.content}`;
+    const logEntry = `[${new Date().toLocaleString()}] Message from ${message.author.username} in #${message.channel.name} (${message.channel.id}):\n${message.content}`;
     console.log(logEntry);
     
     if (message.author.bot) return;
 
-    if (message.content.includes(":3")) console.log(":3");
+    if (message.content.includes(":3")) await message.channel.send(":3");
 });
 
 try {
