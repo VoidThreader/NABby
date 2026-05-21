@@ -1,5 +1,9 @@
+# PRIVATE FOLDERS
 node_modules
 build
+.venv
+__pycache__
 
+# ENVIRONMENT VARIABLES
 .env*
 !.env.example
