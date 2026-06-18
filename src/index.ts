@@ -2,20 +2,25 @@ import "dotenv/config";
 import { 
     Client, ClientOptions, Collection, 
     Events, GatewayIntentBits, MessageFlags, 
-    REST, Routes
 } from "discord.js";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { Command } from "./types.js";
 import fs  from "node:fs";
 import path from "node:path";
 
+// boilerplate, used for checking file names and directory names
 const __filename = fileURLToPath(new URL(import.meta.url));
 const __dirname = path.dirname(__filename);
 
-const rest = new REST().setToken(`${process.env.DISCORD_TOKEN}`)
+const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
+
+if (!DISCORD_TOKEN) {
+    throw new Error("Missing required environment variable: DISCORD_TOKEN");
+}
+
+// boilerplate
 const foldersPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);
-const commands: object[] = [];
 
 // client.commands throws an error, this is the alternative/fix
 class TsClient extends Client {
@@ -27,27 +32,30 @@ class TsClient extends Client {
 
 const client = new TsClient({
     intents: [
-        GatewayIntentBits.AutoModerationConfiguration,
-        GatewayIntentBits.AutoModerationExecution,
-        GatewayIntentBits.DirectMessagePolls,
-        GatewayIntentBits.DirectMessageReactions,
-        GatewayIntentBits.DirectMessageTyping,
-        GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.GuildExpressions,        
-        GatewayIntentBits.GuildIntegrations,
-        GatewayIntentBits.GuildInvites,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessagePolls,
-        GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.GuildMessageTyping,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildModeration,
-        GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildScheduledEvents,
-        GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildWebhooks,
+        // Required
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.MessageContent
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+
+        // Uncomment if required
+        // GatewayIntentBits.AutoModerationConfiguration,
+        // GatewayIntentBits.AutoModerationExecution,
+        // GatewayIntentBits.DirectMessagePolls,
+        // GatewayIntentBits.DirectMessageReactions,
+        // GatewayIntentBits.DirectMessageTyping,
+        // GatewayIntentBits.DirectMessages,
+        // GatewayIntentBits.GuildExpressions,        
+        // GatewayIntentBits.GuildIntegrations,
+        // GatewayIntentBits.GuildInvites,
+        // GatewayIntentBits.GuildMembers,
+        // GatewayIntentBits.GuildMessagePolls,
+        // GatewayIntentBits.GuildMessageReactions,
+        // GatewayIntentBits.GuildMessageTyping,
+        // GatewayIntentBits.GuildModeration,
+        // GatewayIntentBits.GuildPresences,
+        // GatewayIntentBits.GuildScheduledEvents,
+        // GatewayIntentBits.GuildVoiceStates,
+        // GatewayIntentBits.GuildWebhooks,
     ]
 });
 
@@ -60,22 +68,10 @@ for (const folder of commandFolders) {
         const command = (await import(pathToFileURL(filePath).href)).default;
         if ("data" in command && "execute" in command) {
             client.commands.set(command.data.name, command);
-            commands.push(command.data.toJSON());
         } else {
             console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
         }
     }
-}
-
-try {
-    console.log(`Started refreshing ${commands.length} application (/) commands.`);
-    const data = await rest.put(
-        Routes.applicationGuildCommands(`${process.env.CLIENT_ID}`, `${process.env.GUILD_ID}`),
-        { body: commands },
-    ) as object[];
-    console.log(`Successfully reloaded ${data.length} application (/) commands.`);
-} catch (error) {
-    console.log(error);
 }
 
 client.on(Events.ClientReady, () => {
@@ -89,23 +85,23 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     if (!command) {
         console.error(`No command matching ${interaction.commandName} was found.`);
-		return;
+        return;
     }
 
     try {
         await command.execute(interaction);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         if (interaction.replied || interaction.deferred) {
             await interaction.followUp({
-				content: 'There was an error while executing this command!',
-				flags: MessageFlags.Ephemeral,
-			});
+                content: 'There was an error while executing this command!',
+                flags: MessageFlags.Ephemeral,
+            });
         } else {
             await interaction.reply({
-				content: 'There was an error while executing this command!',
-				flags: MessageFlags.Ephemeral,
-			});
+                content: 'There was an error while executing this command!',
+                flags: MessageFlags.Ephemeral,
+            });
         }
     }
 });
@@ -115,14 +111,20 @@ client.on(Events.MessageCreate, async message => {
 
     const logEntry = `[${new Date().toLocaleString()}] Message from ${message.author.username} in #${message.channel.name} (${message.channel.id}):\n${message.content}`;
     console.log(logEntry);
-    
+
     if (message.author.bot) return;
 
-    if (message.content.includes(":3")) await message.channel.send(":3");
+    if (message.content.includes(":3")) {
+        try {
+            await message.channel.send(":3");
+        } catch (error) {
+            console.error("Failed to send :3 message:", error);
+        }
+    }
 });
 
 try {
-    client.login(`${process.env.DISCORD_TOKEN}`);
+    await client.login(DISCORD_TOKEN);
 } catch (error) {
-    console.log(`Failed to login:\n${error}`);
+    console.error(`Failed to login:\n${error}`);
 }

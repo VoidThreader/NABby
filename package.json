@@ -6,6 +6,8 @@
   "scripts": {
     "setup-python": "python -m venv .venv && ./.venv/Scripts/python -m pip install -r requirements.txt || .\\.venv\\Scripts\\python -m pip install -r requirements.txt",
     "start-python": "./.venv/Scripts/python src/main.py || .\\.venv\\Scripts\\python src/core/main.py",
+    "dev-deploy": "tsx --env-file=data/.env.dev src/deploy-commands.ts",
+    "prod-deploy": "tsx --env-file=data/.env.prod src/deploy-commands.ts",
     "dev": "tsx watch --env-file=data/.env.dev src/index.ts",
     "build": "del /s /q build && tsc",
     "prod": "node --env-file=data/.env.prod .",
