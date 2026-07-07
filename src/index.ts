@@ -4,7 +4,7 @@ import {
     Events, GatewayIntentBits, MessageFlags, 
 } from "discord.js";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { Command } from "./types.js";
+import { Command } from "./structures/types.js";
 import fs  from "node:fs";
 import path from "node:path";
 
@@ -37,25 +37,25 @@ const client = new TsClient({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
 
-        // Uncomment if required
-        // GatewayIntentBits.AutoModerationConfiguration,
-        // GatewayIntentBits.AutoModerationExecution,
-        // GatewayIntentBits.DirectMessagePolls,
-        // GatewayIntentBits.DirectMessageReactions,
-        // GatewayIntentBits.DirectMessageTyping,
-        // GatewayIntentBits.DirectMessages,
-        // GatewayIntentBits.GuildExpressions,        
-        // GatewayIntentBits.GuildIntegrations,
-        // GatewayIntentBits.GuildInvites,
-        // GatewayIntentBits.GuildMembers,
-        // GatewayIntentBits.GuildMessagePolls,
-        // GatewayIntentBits.GuildMessageReactions,
-        // GatewayIntentBits.GuildMessageTyping,
-        // GatewayIntentBits.GuildModeration,
-        // GatewayIntentBits.GuildPresences,
-        // GatewayIntentBits.GuildScheduledEvents,
-        // GatewayIntentBits.GuildVoiceStates,
-        // GatewayIntentBits.GuildWebhooks,
+        // Uncomment if needed
+        //GatewayIntentBits.AutoModerationConfiguration,
+        //GatewayIntentBits.AutoModerationExecution,
+        //GatewayIntentBits.DirectMessagePolls,
+        //GatewayIntentBits.DirectMessageReactions,
+        //GatewayIntentBits.DirectMessageTyping,
+        //GatewayIntentBits.DirectMessages,
+        //GatewayIntentBits.GuildExpressions,        
+        //GatewayIntentBits.GuildIntegrations,
+        //GatewayIntentBits.GuildInvites,
+        //GatewayIntentBits.GuildMembers,
+        //GatewayIntentBits.GuildMessagePolls,
+        //GatewayIntentBits.GuildMessageReactions,
+        //GatewayIntentBits.GuildMessageTyping,
+        //GatewayIntentBits.GuildModeration,
+        //GatewayIntentBits.GuildPresences,
+        //GatewayIntentBits.GuildScheduledEvents,
+        //GatewayIntentBits.GuildVoiceStates,
+        //GatewayIntentBits.GuildWebhooks,
     ]
 });
 
@@ -75,7 +75,7 @@ for (const folder of commandFolders) {
 }
 
 client.on(Events.ClientReady, () => {
-    console.log("Neos is online");
+    console.log("NABby is online");
     console.log(`Client: All eyes on ${client.user?.username}!`);
 });
 

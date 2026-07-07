@@ -4,6 +4,9 @@ build
 .venv
 __pycache__
 
+# PRIVATE FILES
+*.txt
+
 # ENVIRONMENT VARIABLES
 .env*
 !.env.example
