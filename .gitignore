@@ -9,4 +9,7 @@ __pycache__
 
 # ENVIRONMENT VARIABLES
 .env*
+
+# EXCEPTIONS
 !.env.example
+!requirements.txt

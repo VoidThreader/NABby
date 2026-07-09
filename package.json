@@ -4,12 +4,12 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "core-set": "python -m venv .venv && ./.venv/Scripts/python -m pip install -r requirements.txt || .\\.venv\\Scripts\\python -m pip install -r requirements.txt",
-    "core-run": "./.venv/Scripts/python src/main.py || .\\.venv\\Scripts\\python src/core/main.py",
+    "core-set": "node scripts/core-set.js",
+    "core-run": "node scripts/core-run.js",
     "dev-deploy": "tsx --env-file=data/.env.dev src/deploy-commands.ts",
     "prod-deploy": "tsx --env-file=data/.env.prod src/deploy-commands.ts",
-    "dev": "tsx watch --env-file=data/.env.dev src/index.ts",
     "build": "del /s /q build && tsc",
+    "dev": "tsx watch --env-file=data/.env.dev src/index.ts",
     "prod": "node --env-file=data/.env.prod .",
     "lint": "eslint . --fix"
   },
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^26.1.0",
+    "@types/node": "^26.1.1",
     "eslint": "^10.6.0",
     "tsx": "^4.23.0",
     "typescript-eslint": "^8.63.0"

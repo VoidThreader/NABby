@@ -9,7 +9,7 @@ app = FastAPI()
 class UserQuery(BaseModel):
     prompt: str
 
-with open("data/sysproompt.txt", "r") as s:
+with open("data/sysprompt.txt", "r") as s:
     sysprompt = s.read()
 
 model = Model("gemma3:4b", sysprompt)
