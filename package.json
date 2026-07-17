@@ -1,13 +1,13 @@
 {
   "name": "nabby",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "",
   "main": "build/index.js",
   "scripts": {
     "core-set": "node scripts/core-set.js",
     "core-run": "node scripts/core-run.js",
-    "dev-deploy": "tsx --env-file=data/.env.dev src/deploy-commands.ts",
-    "prod-deploy": "tsx --env-file=data/.env.prod src/deploy-commands.ts",
+    "deploy-dev": "tsx --env-file=data/.env.dev src/deploy-commands.ts",
+    "deploy-prod": "tsx --env-file=data/.env.prod src/deploy-commands.ts",
     "build": "del /s /q build && tsc",
     "dev": "tsx watch --env-file=data/.env.dev src/index.ts",
     "prod": "node --env-file=data/.env.prod .",
