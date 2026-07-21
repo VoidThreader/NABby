@@ -6,6 +6,7 @@ __pycache__
 
 # PRIVATE FILES
 *.txt
+dev.*
 
 # ENVIRONMENT VARIABLES
 .env*
