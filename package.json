@@ -1,6 +1,6 @@
 {
   "name": "nabby",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "",
   "main": "build/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "core-run": "node scripts/core-run.js",
     "deploy-dev": "tsx --env-file=data/.env.dev src/deploy-commands.ts",
     "deploy-prod": "tsx --env-file=data/.env.prod src/deploy-commands.ts",
-    "build": "del /s /q build && tsc",
+    "build": "node scripts/clean.js && tsc",
     "dev": "tsx watch --env-file=data/.env.dev src/index.ts",
     "prod": "node --env-file=data/.env.prod .",
     "lint": "eslint . --fix"
