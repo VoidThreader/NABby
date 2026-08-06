@@ -1,10 +1,7 @@
 import "dotenv/config";
-import { 
-    Client, ClientOptions, Collection, 
-    Events, GatewayIntentBits, MessageFlags, 
-} from "discord.js";
+import { TsClient } from "./structures/tsClient.js";
+import { Events, GatewayIntentBits, MessageFlags } from "discord.js";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { Command } from "./structures/types.js";
 import fs  from "node:fs";
 import path from "node:path";
 
@@ -21,14 +18,6 @@ if (!DISCORD_TOKEN) {
 // boilerplate
 const foldersPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);
-
-// client.commands throws an error, this is the alternative/fix
-class TsClient extends Client {
-    commands: Collection<string, Command> = new Collection();
-    constructor(options: ClientOptions) {
-        super(options);
-    }
-}
 
 const client = new TsClient({
     intents: [
