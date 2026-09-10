@@ -1,3 +1,5 @@
 import console from "node:console";
 
-console.log("Hello, world!");
+export function call(): void {
+    console.log("Still a work in progress");
+}

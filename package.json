@@ -1,6 +1,6 @@
 {
   "name": "nabby",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "",
   "main": "build/index.js",
   "scripts": {
@@ -11,22 +11,26 @@
     "build": "node scripts/clean.js build && tsc",
     "dev": "tsx watch --env-file=data/.env.dev src/index.ts",
     "prod": "node --env-file=data/.env.prod .",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "check-update": "npx npm-check-updates --cooldown 1",
+    "patch": "npx npm-check-updates -u --target patch --cooldown 1 && npm install"
   },
   "keywords": [],
   "author": "VoidThreader",
-  "license": "ISC",
+  "license": "AGPL-3.0-only",
   "type": "module",
   "dependencies": {
     "discord.js": "^14.27.0",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "hjson": "^3.2.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^26.1.1",
-    "eslint": "^10.6.0",
-    "tsx": "^4.23.1",
-    "typescript-eslint": "^8.65.0"
+    "@types/hjson": "^2.4.6",
+    "@types/node": "^26.1.2",
+    "eslint": "^10.8.0",
+    "tsx": "^4.23.7",
+    "typescript-eslint": "^8.66.0"
   },
   "overrides": {
     "undici": "^6.26.1"
