@@ -21,3 +21,9 @@ export interface Event<K extends keyof ClientEvents = keyof ClientEvents> {
     once?: boolean;
     execute: (...args: ClientEvents[K]) => void | Promise<void>;
 }
+
+// Type Response handling
+type TextResponse = { type: 'text'; content: string };
+type ImageResponse = { type: 'image'; file: string };
+
+export type ResponseItem = TextResponse | ImageResponse;

@@ -8,16 +8,6 @@ const event: Event<Events.MessageCreate> = {
 
         const logEntry = `[${new Date().toLocaleString()}] Message from ${message.author.username} in #${message.channel.name} (${message.channel.id}):\n${message.content}`;
         console.log(logEntry);
-
-        if (message.author.bot) return;
-
-        if (message.content.includes(":3")) {
-            try {
-                await message.channel.send(":3");
-            } catch (error) {
-                console.error("Failed to send :3 message:", error);
-            }
-        }
     },
 }
 

@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, MessageFlags } from 'discord.js';
 import { Command } from '../../structures/types.js';
+import { setTimeout } from 'node:timers/promises';
 import fs from 'node:fs';
 import path from 'node:path';
 import Hjson from 'hjson';
@@ -48,11 +49,13 @@ const command: Command = {
 			try {
 				await interaction?.channel?.send(user);
 			} catch (err) {
-				console.error(`Spam failed: ${err}`)
+				console.error(`Spam failed: ${err}`);
 			}
 		}
 
 		await interaction.editReply("Spamming complete.");
+		await setTimeout(3000); // 3 seconds
+		await interaction.deleteReply();
 	},
 };
 
