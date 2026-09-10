@@ -1,4 +1,3 @@
-import hjson # type: ignore
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -10,10 +9,10 @@ app = FastAPI()
 class UserQuery(BaseModel):
     prompt: str
 
-with open("data/configs.hjson", "r", encoding="utf-8") as f:
-    sysprompt = hjson.load(f) # type: ignore
+with open("data/sysprompt.txt", "r") as s:
+    sysprompt = s.read()
 
-model = Model("gemma3:4b", str(sysprompt["system_prompt"])) # type: ignore
+model = Model("gemma3:4b", sysprompt)
 
 @app.get("/ask")
 async def handle_query(data: UserQuery):
