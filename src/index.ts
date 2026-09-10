@@ -2,7 +2,7 @@ import "dotenv/config";
 import { GatewayIntentBits } from "discord.js";
 import { TsClient } from "./structures/tsClient.js";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import fs  from "node:fs";
+import fs from "node:fs";
 import path from "node:path";
 
 // boilerplate, used for checking file names and directory names
@@ -71,9 +71,9 @@ for (const file of eventFiles) {
     const event = (await import(pathToFileURL(filePath).href)).default;
     if (event.once) {
         client.once(event.name, (...args) => event.execute(...args));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args));
-	}
+    } else {
+        client.on(event.name, (...args) => event.execute(...args));
+    }
 }
 
 try {

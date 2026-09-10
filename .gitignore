@@ -5,7 +5,7 @@ build
 __pycache__
 
 # PRIVATE FILES
-*.txt
+configs.hjson
 dev.*
 
 # ENVIRONMENT VARIABLES

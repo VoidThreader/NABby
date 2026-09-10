@@ -1,0 +1,18 @@
+title: Privacy Policy for NABby
+description:
+    '''
+    **Data Collection & Message Logging**
+    1. What is collected?
+    For the purpose of moderation in this server, Nabby logs messages, message timestamps, and Discord User IDs.
+    2. Why is it collected?
+    Messages are collected strictly for the purpose of server moderation to prevent rule violations. No data will be sent to a third party provider, everything is local.
+    3. How long is it stored?
+    Data is stored for as long as the bot is running in the server. This means that all data will be wiped whenever the bot undergoes maintenance or catches an unexpected error.
+    4. What about the AI components?
+    The AI runs locally on the Operator's machine, this means that data will only be processed locally, not by third party AI providers. The same logging process described above apply to this component.
+    5. Is information shared to third parties?
+    No. With the exception of Discord which handles your information based on their guidelines, not that I can do anything about it anyways.
+
+    **Changes to this Policy**
+    This policy may be updated as the features to the bot change.
+    '''
