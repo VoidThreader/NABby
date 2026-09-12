@@ -1,7 +1,7 @@
 {
   "name": "nabby",
-  "version": "0.2.3",
-  "description": "",
+  "version": "0.2.4",
+  "description": "Discord bot for the server Operation Aziris.",
   "main": "build/index.js",
   "scripts": {
     "core-set": "node scripts/core-set.js",

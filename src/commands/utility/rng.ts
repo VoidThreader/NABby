@@ -25,10 +25,10 @@ const command: Command = {
 	async execute(interaction: ChatInputCommandInteraction): Promise<void> {
 		const channelId = interaction.channelId;
 
-		if (!interaction.channel || !('createMessageCollector' in interaction.channel)) {
-			await interaction.reply({ content: "This command can only be used in a text channel.", flags: MessageFlags.Ephemeral });
-			return;
-		}
+		if (!interaction.channel?.isSendable()) {
+            await interaction.reply({ content: "This command can only be used in a text channel.", flags: MessageFlags.Ephemeral });
+            return;
+        }
 
 		if (activeGames.has(channelId)) {
 			await interaction.reply({ content: 'Ah! Ah! Ah! A game is already in progress in this channel!', flags: MessageFlags.Ephemeral });
@@ -45,7 +45,7 @@ const command: Command = {
 		activeGames.add(channelId);
 
 		const generatedNum = getRandInt(lowest, highest);
-		await interaction.reply(`"I rolled a die! Guess which number I got from ${lowest} to ${highest}!"`);
+		await interaction.reply(`I rolled a die! Guess which number I got from ${lowest} to ${highest}!`);
 
 		const collector = interaction?.channel?.createMessageCollector({
 			filter: m => m.author.id === interaction.user.id,
@@ -62,9 +62,7 @@ const command: Command = {
 				return;
 			}
 
-			if (!/\d+/.test(content)) {
-				return;
-			}
+			if (!/^\d+$/.test(content)) return; // Validates if the message sent by the user is strictly an integer
 
 			const guessedNum = parseInt(content, 10);
 

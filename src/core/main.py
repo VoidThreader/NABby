@@ -11,9 +11,9 @@ class UserQuery(BaseModel):
     prompt: str
 
 with open("data/configs.hjson", "r", encoding="utf-8") as f:
-    sysprompt = hjson.load(f) # type: ignore
+    configs = hjson.load(f) # type: ignore
 
-model = Model("gemma3:4b", str(sysprompt["system_prompt"])) # type: ignore
+model = Model(str(configs["model"]), str(configs["system_prompt"])) # type: ignore
 
 @app.get("/ask")
 async def handle_query(data: UserQuery):

@@ -1,3 +1,5 @@
+# CONFIGS
+# Privacy Policy
 title: Privacy Policy for NABby
 description:
     '''
@@ -16,3 +18,10 @@ description:
     **Changes to this Policy**
     This policy may be updated as the features to the bot change.
     '''
+
+# Special commands specific
+allowed_users: []
+
+# AI related
+model: your model here
+system_prompt: your user prompt here

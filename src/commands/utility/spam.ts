@@ -28,17 +28,22 @@ const command: Command = {
 		),
 
 	async execute(interaction: ChatInputCommandInteraction): Promise<void> {
+		if (!interaction.channel?.isSendable()) {
+            await interaction.reply({ content: "This command can only be used in a text channel.", flags: MessageFlags.Ephemeral });
+            return;
+        }
+
+		if (!ALLOWED_USERS) {
+			interaction.reply({ content: "There are no allowed users to use this command.", flags: MessageFlags.Ephemeral });
+			return;
+		}	
+
 		if (!ALLOWED_USERS.includes(interaction.user.id)) {
-			interaction.reply("You don't have permission to use this command.");
+			interaction.reply({ content: "You don't have permission to use this command.", flags: MessageFlags.Ephemeral });
 			return;
 		}
 
-		if (!interaction.channel || !('send' in interaction.channel)) {
-			await interaction.reply({ content: "This command can only be used in a text channel.", flags: MessageFlags.Ephemeral });
-			return;
-		}
-
-		await interaction.deferReply({ flags : MessageFlags.Ephemeral });
+		await interaction.deferReply({ flags: MessageFlags.Ephemeral });
 
 		const user = interaction.options.getString('message');
 		const repetition = interaction.options.getInteger('repeats') ?? 1;
@@ -54,7 +59,7 @@ const command: Command = {
 		}
 
 		await interaction.editReply("Spamming complete.");
-		await setTimeout(3000); // 3 seconds
+		await setTimeout(3000); // 3 seconds timeout
 		await interaction.deleteReply();
 	},
 };
